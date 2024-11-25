@@ -9,48 +9,51 @@ st.set_page_config(page_title="Template for personal card", page_icon="📇")
 #---------------------------------------------------------
 # Title and Header
 st.title('Template for personal card')
-#---------------------------------------------------------
-# Options for the selectbox
-options = ["select...", "Prof.", "Dr.", "Dr.-Ing","Dr.rer.nat.","M.Sc.","B.Sc.","Other"]
 
-# Selectbox for expertise with 'Other' option
-title = st.selectbox("Enter Title", options)
+# Create a container for responsive layout
+with st.container():
+    # Create two columns for layout with added space
+    col1, col2 = st.columns([2, 1], gap="large")  # Use gap="large" for more space
 
-# If 'Other' is selected, show a text input for custom title
-if title == "Other":
-    custom_title = st.text_input("Please specify your title")
-    title = custom_title  # Use the custom input instead of "Other"
+    # Display the card template image in the second column
+    with col2:
+        st.image("karte_vorlage.png", caption="Example of the Personal Card Template", use_column_width=True)  # Adjust width as needed
 
-# Collect inputs from the user
-#title = st.selectbox("Enter Title"
- #   ("select...", "Prof.", "Dr.", "Dr.-Ing","Dr.rer.nat.","M.Sc.","B.Sc."),
-#)
-#---------------------------------------------------------
-First_name = st.text_input("Enter First Name")
-Surname = st.text_input("Enter Surname")
-#---------------------------------------------------------
-# Options for the selectbox
-options = ["select...", "Institutsleitung", "Bereichsleitung", "Abteilungsleitung","Gruppenleitung","Wissenschaftlicher Mitarbeiter","Wissenschaftliche Mitarbeiterin","Mitarbeiter","Mitarbeiterin","Werksleitung","Komm. Gruppenleitung","Technischer Mitarbeiter","Technische Mitarbeiterin","Ingenieur","Ingenieurin","Chemielaborant","Chemielaborantin","Techniker","Technikerin", "Other"]
+    # Display the selection lines in the first column
+    with col1:
+        #---------------------------------------------------------
+        # Options for the selectbox
+        options = ["select...", "Prof.", "Dr.", "Dr.-Ing","Dr.rer.nat.","M.Sc.","B.Sc.","Other"]
 
-# Selectbox for expertise with 'Other' option
-position = st.selectbox("Enter Position", options)
+        # Selectbox for expertise with 'Other' option
+        title = st.selectbox("Enter Title", options)
 
-# If 'Other' is selected, show a text input for custom position
-if position == "Other":
-    custom_position = st.text_input("Please specify your position")
-    position = custom_position  # Use the custom input instead of "Other"
-#---------------------------------------------------------
-#position = st.selectbox("Enter Position",
-#    ("select...", "Institutsleitung", "Bereichsleitung", "Abteilungsleitung","Gruppenleitung","Wissenschaftlicher Mitarbeiter","Wissenschaftliche Mitarbeiterin","Mitarbeiter","Mitarbeiterin","Werksleitung","Komm. Gruppenleitung","Technischer Mitarbeiter","Technische Mitarbeiterin","Ingenieur","Ingenieurin","Chemielaborant","Chemielaborantin","Techniker","Technikerin"),
-#)
-#---------------------------------------------------------
-picture = st.file_uploader("Upload your picture", type=["png", "jpeg", "jpg"])
-expertise_1 = st.text_input("Expertise/Workfield 1")
-expertise_2 = st.text_input("Expertise/Workfield 2")
-expertise_3 = st.text_input("Expertise/Workfield 3")
+        # If 'Other' is selected, show a text input for custom title
+        if title == "Other":
+            custom_title = st.text_input("Please specify your title")
+            title = custom_title  # Use the custom input instead of "Other"
 
+        # Collect inputs from the user
+        First_name = st.text_input("Enter First Name")
+        Surname = st.text_input("Enter Surname")
 
-from fpdf import FPDF
+        #---------------------------------------------------------
+        # Options for the selectbox
+        options = ["select...", "Institutsleitung", "Bereichsleitung", "Abteilungsleitung","Gruppenleitung","Wissenschaftlicher Mitarbeiter","Wissenschaftliche Mitarbeiterin","Mitarbeiter","Mitarbeiterin","Werksleitung","Komm. Gruppenleitung","Technischer Mitarbeiter","Technische Mitarbeiterin","Ingenieur","Ingenieurin","Chemielaborant","Chemielaborantin","Techniker","Technikerin", "Other"]
+
+        # Selectbox for expertise with 'Other' option
+        position = st.selectbox("Enter Position", options)
+
+        # If 'Other' is selected, show a text input for custom position
+        if position == "Other":
+            custom_position = st.text_input("Please specify your position")
+            position = custom_position  # Use the custom input instead of "Other"
+
+        #---------------------------------------------------------
+        picture = st.file_uploader("Upload your picture", type=["png", "jpeg", "jpg"])
+        expertise_1 = st.text_input("Expertise/Workfield 1")
+        expertise_2 = st.text_input("Expertise/Workfield 2")
+        expertise_3 = st.text_input("Expertise/Workfield 3")
 
 class PDF(FPDF):
     def gradient_fill(self, x, y, w, h, start_color, end_color, steps=100):
