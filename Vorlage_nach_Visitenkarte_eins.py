@@ -17,7 +17,7 @@ with st.container():
 
     # Display the card template image in the second column
     with col2:
-        st.image("karte_vorlage.png", caption="Example of the Personal Card Template", use_column_width=True)  # Adjust width as needed
+        st.image("Bild2.png", caption="Example of the Personal Card Template", use_column_width=True)  # Adjust width as needed
 
     # Display the selection lines in the first column
     with col1:
@@ -110,12 +110,8 @@ if st.button("Generate PDF"):
     if warning_messages:
         st.warning("\n".join(warning_messages))
 
-    # Colors for gradient
-    start_color = (0, 119, 154)
-    end_color = (1, 74, 107)
-
-    # Gradient box for name and position
-    pdf.gradient_fill(55, 10, 55, 60, start_color, end_color)
+    # Set the background image for the name and position
+    pdf.image("Bild1.png", x=55, y=10, w=55, h=60)  # Adjust the position and size as needed
 
     # Add position text in white with dynamic font size
     pdf.set_text_color(255, 255, 255)
@@ -149,7 +145,7 @@ if st.button("Generate PDF"):
         pdf.rect(10, 10, 45, 60)
     
     # Add expertise entries with dynamic font size
-    current_y = 45
+    current_y = 40  # Start 5 mm higher than the previous value of 45
     base_expertise_font_size = 10
     
     for expertise in [expertise_1, expertise_2, expertise_3]:
