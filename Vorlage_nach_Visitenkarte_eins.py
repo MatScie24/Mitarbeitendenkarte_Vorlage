@@ -58,11 +58,11 @@ st.markdown("""
         margin-top: 0 !important;
         margin-left: 0cm !important;
     }
-    /* Add margin to the image container */
+    /* Make the image container responsive with aligned margins */
     [data-testid="column"] > div:has(img) {
         margin-top: 0.8cm;
         margin-left: 0.3cm;
-        margin-right: 1cm;
+        margin-right: 1cm;  /* Same as selectbox margin */
         width: calc(100% - 1.3cm);
         height: auto;
     }
