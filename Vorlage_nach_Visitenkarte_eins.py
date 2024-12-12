@@ -61,9 +61,24 @@ st.markdown("""
     /* Add margin to the image container */
     [data-testid="column"] > div:has(img) {
         margin-top: 0.8cm;
+        margin-left: 0.3cm;
+        margin-right: 1cm;
+        width: calc(100% - 1.3cm);
+        height: auto;
+    }
+    
+    /* Make the image itself responsive */
+    .stImage {
+        width: 100%;
+        max-width: 300px;
+        min-width: 150px;
+        margin: 0 auto;
+        display: block;
     }
     
     .stImage > img {
+        width: 100%;
+        height: auto;
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
         -ms-interpolation-mode: nearest-neighbor;
@@ -104,10 +119,10 @@ with st.container():
 
 
     with col2:
-        # Display the card template image on the right with improved quality
+        # Display the card template image with responsive sizing
         st.image("Bild2.png", 
-                caption="Example of the Personal Card Template", 
-                width=300)  # Disable column width scaling to maintain quality
+                caption="Example of the Personal Card Template",
+                use_column_width=True)  # Enable column width scaling
         
 
     options = ["select...", "Institutsleitung", "Bereichsleitung", "Abteilungsleitung","Gruppenleitung","Wissenschaftlicher Mitarbeiter","Wissenschaftliche Mitarbeiterin","Mitarbeiter","Mitarbeiterin","Werksleitung","Komm. Gruppenleitung","Technischer Mitarbeiter","Technische Mitarbeiterin","Ingenieur","Ingenieurin","Chemielaborant","Chemielaborantin","Techniker","Technikerin", "Other"]
