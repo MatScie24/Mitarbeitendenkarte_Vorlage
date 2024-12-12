@@ -63,15 +63,15 @@ st.markdown("""
         margin-top: 0.8cm;
         margin-left: 0.3cm;
         margin-right: 1cm;  /* Same as selectbox margin */
-        width: calc(100% - 1.3cm);
-        height: auto;
+        width: calc(100% - 2cm);
+        height: 100px;
     }
     
     /* Make the image itself responsive */
     .stImage {
         width: 100%;
         max-width: 300px;
-        min-width: 150px;
+        min-width: 100px;
         margin: 0 auto;
         display: block;
     }
