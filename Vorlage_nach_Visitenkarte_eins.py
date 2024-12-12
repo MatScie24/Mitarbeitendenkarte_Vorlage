@@ -63,8 +63,8 @@ st.markdown("""
         margin-top: 0.8cm;
         margin-left: 0.3cm;
         margin-right: 1cm;  /* Same as selectbox margin */
-        width: calc(100% - 2cm);
-        height: 100px;
+        width: calc(100% - 2.5cm);
+        height: 80px;
     }
     
     /* Make the image itself responsive */
