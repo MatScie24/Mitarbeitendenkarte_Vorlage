@@ -4,56 +4,125 @@ from PIL import Image
 import tempfile
 
 # Add this as the first Streamlit command
-st.set_page_config(page_title="Template for personal card", page_icon="📇")
+st.set_page_config(page_title="Template for personal card", page_icon="📇", layout="wide")
+
+# Add custom CSS for layout adjustment
+st.markdown("""
+    <style>
+    .main .block-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        max-width: 100%;
+    }
+    .stTitle {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    /* Base styling for all input containers */
+    .stSelectbox, .stTextInput, .stFileUploader {
+        width: calc(100% - 2cm) !important;
+        margin-left: 1cm !important;    
+        margin-right: 1cm !important;
+        padding: 0 !important;
+    }
+    /* Style for selectbox container */
+    .stSelectbox > div {
+        width: calc(100% - 2cm) !important;
+        margin-left: 1cm !important;
+        margin-right: 1cm !important;
+        padding: 0 !important;
+    }
+    /* Style for the actual select element */
+    div[data-baseweb="select"] {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    h1 {
+        text-align: center;
+        font-size: 3em;
+    }
+    [data-testid="column"] {
+        padding: 0;
+    }
+    /* Ensure file uploader has same alignment */
+    .stFileUploader > div {
+        width: calc(100% - 2cm) !important;
+        margin-left: 1cm !important;
+        margin-right: 1cm !important;
+        padding: 0 !important;
+    }
+    /* Align selectbox titles to the left and at the same height as the x-position starting point */
+    .stSelectbox label {
+        text-align: left !important;
+        margin-top: 0 !important;
+        margin-left: 0cm !important;
+    }
+    /* Add margin to the image container */
+    [data-testid="column"] > div:has(img) {
+        margin-top: 0.8cm;
+    }
+    
+    .stImage > img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+        -ms-interpolation-mode: nearest-neighbor;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+    /* Center align the Generate PDF button */
+    [data-testid="stButton"] {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 #---------------------------------------------------------
-# Title and Header
-st.title('Template for personal card')
+# Title and Header with center alignment
+st.markdown("<h1>Template for personal card</h1>", unsafe_allow_html=True)
 
 # Create a container for responsive layout
 with st.container():
-    # Create two columns for layout with added space
-    col1, col2 = st.columns([2, 1], gap="large")  # Use gap="large" for more space
+    # Create a two-column layout with 3:1 ratio
+    col1, col2 = st.columns([3, 1])  # 3/4 for inputs, 1/4 for image
 
-    # Display the card template image in the second column
-    with col2:
-        st.image("Bild2.png", caption="Example of the Personal Card Template", use_column_width=True)  # Adjust width as needed
-
-    # Display the selection lines in the first column
     with col1:
-        #---------------------------------------------------------
-        # Options for the selectbox
-        options = ["select...", "Prof.", "Dr.", "Dr.-Ing","Dr.rer.nat.","M.Sc.","B.Sc.","Other"]
+        # Display the selection lines with custom label
+        options = ["select...", "Prof.", "Dr.", "Dr.-Ing","Other"]
+        title = st.selectbox("Enter Title", options)  # Empty label here since we're using custom label above
 
-        # Selectbox for expertise with 'Other' option
-        title = st.selectbox("Enter Title", options)
-
-        # If 'Other' is selected, show a text input for custom title
         if title == "Other":
             custom_title = st.text_input("Please specify your title")
-            title = custom_title  # Use the custom input instead of "Other"
+            title = custom_title
 
-        # Collect inputs from the user
         First_name = st.text_input("Enter First Name")
         Surname = st.text_input("Enter Surname")
 
-        #---------------------------------------------------------
-        # Options for the selectbox
-        options = ["select...", "Institutsleitung", "Bereichsleitung", "Abteilungsleitung","Gruppenleitung","Wissenschaftlicher Mitarbeiter","Wissenschaftliche Mitarbeiterin","Mitarbeiter","Mitarbeiterin","Werksleitung","Komm. Gruppenleitung","Technischer Mitarbeiter","Technische Mitarbeiterin","Ingenieur","Ingenieurin","Chemielaborant","Chemielaborantin","Techniker","Technikerin", "Other"]
 
-        # Selectbox for expertise with 'Other' option
-        position = st.selectbox("Enter Position", options)
 
-        # If 'Other' is selected, show a text input for custom position
-        if position == "Other":
-            custom_position = st.text_input("Please specify your position")
-            position = custom_position  # Use the custom input instead of "Other"
+    with col2:
+        # Display the card template image on the right with improved quality
+        st.image("Bild2.png", 
+                caption="Example of the Personal Card Template", 
+                width=300)  # Disable column width scaling to maintain quality
+        
 
-        #---------------------------------------------------------
-        picture = st.file_uploader("Upload your picture", type=["png", "jpeg", "jpg"])
-        expertise_1 = st.text_input("Expertise/Workfield 1")
-        expertise_2 = st.text_input("Expertise/Workfield 2")
-        expertise_3 = st.text_input("Expertise/Workfield 3")
+    options = ["select...", "Institutsleitung", "Bereichsleitung", "Abteilungsleitung","Gruppenleitung","Wissenschaftlicher Mitarbeiter","Wissenschaftliche Mitarbeiterin","Mitarbeiter","Mitarbeiterin","Werksleitung","Komm. Gruppenleitung","Technischer Mitarbeiter","Technische Mitarbeiterin","Ingenieur","Ingenieurin","Chemielaborant","Chemielaborantin","Techniker","Technikerin", "Other"]
+    position = st.selectbox("Enter Position", options)
+
+    if position == "Other":
+        custom_position = st.text_input("Please specify your position")
+        position = custom_position
+
+    expertise_1 = st.text_input("Expertise/Workfield 1")
+    expertise_2 = st.text_input("Expertise/Workfield 2")
+    expertise_3 = st.text_input("Expertise/Workfield 3")
+
+    # Picture upload (full width)
+    picture = st.file_uploader("Upload your picture", type=["png", "jpeg", "jpg"])
 
 class PDF(FPDF):
     def gradient_fill(self, x, y, w, h, start_color, end_color, steps=100):
@@ -134,7 +203,7 @@ if st.button("Generate PDF"):
     pdf.set_x(57)
     pdf.cell(51, 6, txt=Surname, ln=False, align='L')
 
-    # Picture placeholder/handling
+    # Picture placeholder
     pdf.set_draw_color(0, 0, 0)
     if picture is not None:
         with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmpfile:
