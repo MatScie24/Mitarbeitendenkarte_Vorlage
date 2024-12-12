@@ -120,8 +120,7 @@ with st.container():
 
     with col2:
         # Display the card template image with responsive sizing
-        st.image("Bild2.png", 
-                caption="Example of the Personal Card Template",
+        st.image("Bild2.png",
                 use_column_width=True)  # Enable column width scaling
         
 
